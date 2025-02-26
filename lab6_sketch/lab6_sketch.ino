@@ -22,16 +22,21 @@ void loop() {
   pulse_signal = analogRead(sensor_pin);
   //Serial.println(pulse_signal);
   delay(100);
+  //Serial.println("first peak ");
+  //Serial.println(first_peak_detected);
+  //Serial.println("any peak ");
+  //Serial.println(any_peak_detected);
   if (pulse_signal > upper_threshold && any_peak_detected == false) {
     any_peak_detected = true;
     if (first_peak_detected == false) {
       first_pulse_time = millis();
-      first_peak_detected == true;
+      first_peak_detected = true;
     }
     else {
       second_pulse_time = millis();
       pulse_period = second_pulse_time - first_pulse_time;
-      Serial.println(pulse_period);
+      BPM = 60000/pulse_period;
+      Serial.println(BPM);
       first_peak_detected = false;
     }
   }
